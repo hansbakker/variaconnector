@@ -109,8 +109,8 @@ async def main():
 
         # Ensuring the device offers the needed service
         services = await client.get_services()
-        garmin_service = services.get_service(service_uuid)
-        if garmin_service is None:
+        # garmin_service = services.get_service(service_uuid)
+        if services.get_service(service_uuid) is None:
             print("Radar service not found. Exiting...")
             return
         draw_road()       
