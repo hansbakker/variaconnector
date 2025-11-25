@@ -3,7 +3,7 @@ import asyncio
 from bleak import BleakScanner, BleakClient
 
 service_uuid = "6a4e3200-667b-11e3-949a-0800200c9a66"
-previous_threats = 0
+previous_threats = []
 previous_id_byte = 0
 existing_cars = {}  # Dictionary to track known cars by their number
 
@@ -82,7 +82,7 @@ def process_radar_data(sender,data):
     # as there can only be 6 threats (and demo mode shows at some point 8 cars) in one message, 
     # repeating the previous message's content could be needed, using the id_byte to find such situation
     if (id_byte == previous_id_byte + 2) :
-            current_threats.append(previous_threats)
+            current_threats.extend(previous_threats)
     for i in range(found_threats):
         threat_number = data[1 + (i * 3)]
         threat_distance = data[2 + (i * 3)]
